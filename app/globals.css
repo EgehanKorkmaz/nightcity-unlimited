@@ -1,10 +1,17 @@
 @import "tailwindcss";
 
 @theme {
+  /* Cyberpunk Renk Paletimiz */
   --color-cb-yellow: rgb(252, 238, 10);
   --color-cb-red: rgb(206, 43, 47);
   --color-cb-cyan: rgb(0, 240, 255);
   --color-cb-black: #050505;
+
+  /* Font Ailelerimiz */
+  --font-oswald: var(--font-oswald), sans-serif;
+  --font-inter: var(--font-inter), sans-serif;
+  --font-montserrat: var(--font-montserrat), sans-serif;
+  --font-blender: var(--font-blender), sans-serif; /* Yeni fontumuz */
 }
 
 @layer base {
