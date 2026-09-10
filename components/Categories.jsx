@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { CanvasRevealEffect } from "./ui/CanvasRevealEffect";
@@ -52,12 +52,24 @@ export function Categories() {
 
 const CategoryCard = ({ category }) => {
     const [hovered, setHovered] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Sadece client-side render edildikten sonra ekran boyutunu kontrol et
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 1024); // lg breakpoint altını mobil/tablet sayıyoruz
+        };
+
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
     return (
         <Link
             href={`/urunler?kategori=${category.slug}`}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
+            onMouseEnter={() => !isMobile && setHovered(true)}
+            onMouseLeave={() => !isMobile && setHovered(false)}
             className="border border-cb-cyan/20 group/canvas-card flex flex-col items-center justify-center bg-cb-black/50 hover:bg-cb-black w-full h-[30rem] lg:h-[32rem] p-4 relative cursor-pointer transition-colors"
         >
             {/* Köşe Süslemeleri */}
@@ -66,9 +78,9 @@ const CategoryCard = ({ category }) => {
             <CornerIcon className="absolute h-6 w-6 -top-3 -right-3 text-cb-cyan opacity-50" />
             <CornerIcon className="absolute h-6 w-6 -bottom-3 -right-3 text-cb-cyan opacity-50" />
 
-            {/* Hover anında beliren 3D Canvas Efekti */}
+            {/* Sadece Desktop'ta ve Hover anında Canvas Efekti render edilecek */}
             <AnimatePresence>
-                {hovered && (
+                {hovered && !isMobile && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
