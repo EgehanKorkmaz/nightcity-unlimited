@@ -59,7 +59,7 @@ export default function Home() {
           >
             <Hero />
             {/*<Categories />*/}
-            <About />
+            {/*<About />*/}
             <Contact />
           </motion.div>
         )}
