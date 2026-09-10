@@ -58,7 +58,7 @@ export default function Home() {
             className="w-full min-h-screen"
           >
             <Hero />
-            <Categories />
+            {/*<Categories />*/}
             <About />
             <Contact />
           </motion.div>
