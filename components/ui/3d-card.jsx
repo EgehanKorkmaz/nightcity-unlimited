@@ -11,7 +11,6 @@ export const TiltCard = ({ children, className, glowClass }) => {
     const mouseXSpring = useSpring(x, { stiffness: 400, damping: 40 });
     const mouseYSpring = useSpring(y, { stiffness: 400, damping: 40 });
 
-    // Maksimum 5 derecelik hafif bir eğilme açısı (Subtle Tilt)
     const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["5deg", "-5deg"]);
     const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-5deg", "5deg"]);
 

@@ -38,7 +38,6 @@ export function Contact() {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                                 </svg>
                             </div>
-                            {/* 2. E-Posta linki aktif hale getirildi */}
                             <a href="mailto:info@nightunlimited.com" className="font-oswald tracking-widest text-white group-hover:text-cb-cyan transition-colors">
                                 INFO@NIGHTUNLIMITED.COM
                             </a>
@@ -50,7 +49,6 @@ export function Contact() {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
                                 </svg>
                             </div>
-                            {/* 3. Telefon linki aktif hale getirildi */}
                             <a href="tel:+905550000000" className="font-oswald tracking-widest text-white group-hover:text-cb-cyan transition-colors">
                                 +90 (555) 000 00 00
                             </a>
@@ -113,7 +111,6 @@ export function Contact() {
                             </label>
                         </div>
 
-                        {/* 4. Buton hover rengi hover:bg-cb-yellow olarak değiştirildi */}
                         <Button
                             duration={3000}
                             className="w-full py-4 font-blender text-xl tracking-widest uppercase bg-cb-black hover:bg-cb-yellow hover:text-cb-black transition-colors"

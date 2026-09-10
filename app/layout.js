@@ -1,4 +1,5 @@
 import { Oswald, Inter, Montserrat } from 'next/font/google';
+import { Footer } from "@/components/Footer"; // Dosyanın en üstüne import et
 import localFont from 'next/font/local';
 import "./globals.css";
 
@@ -16,23 +17,18 @@ const blenderPro = localFont({
 
 export const metadata = {
   title: "Night Unlimited | Cyberpunk Edition",
-  description: "Night City'nin en iyi ürünleri.",
+  description: "Night City",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="tr">
-      {/* Tanımladığımız font değişkenlerini body'e ekliyoruz */}
       <body className={`${inter.variable} ${oswald.variable} ${montserrat.variable} ${blenderPro.variable} antialiased min-h-screen overflow-x-hidden bg-cb-black text-white`}>
-        {/* Navigasyon barı (Header) buraya gelecek */}
-
         <main>
           {children}
         </main>
-
-        {/* Footer buraya gelecek */}
+        <Footer />
       </body>
     </html>
   );
 }
-

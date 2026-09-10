@@ -21,7 +21,7 @@ export function About() {
                     <CornerIcon className="absolute h-6 w-6 -top-3 -right-3 text-cb-cyan opacity-50 transition-opacity group-hover:opacity-100" />
                     <CornerIcon className="absolute h-6 w-6 -bottom-3 -right-3 text-cb-cyan opacity-50 transition-opacity group-hover:opacity-100" />
 
-                    {/* Döngüsel Arka Plan Videosu */}
+                    {/* Arka Plan Videosu Loop */}
                     <video
                         src="/Night Unlimited LED Ekran ve Görüntü Sistemleri.mp4"
                         autoPlay
@@ -30,7 +30,7 @@ export function About() {
                         playsInline
                         className="w-full h-full object-cover filter contrast-125 saturate-50 brightness-75 group-hover:filter-none transition-all duration-700"
                     />
-                    {/* Video Üstü Tarama Çizgileri (Scanlines) */}
+                    {/* Video Üstü Tarama Çizgileri */}
                     <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(0,0,0,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] opacity-30 z-10" />
                 </motion.div>
 
@@ -60,7 +60,7 @@ export function About() {
                         Projeye özel esnek modüller, stadyumlar için sıfır gecikmeli devasa paneller ve mimari hatlara uyum sağlayan transparan ekranlarımızla; sadece bir görüntü sistemi değil, tamamen içine çeken bir deneyim sunuyoruz.
                     </p>
 
-                    {/* Alt Veri Blokları */}
+                    {/* Veri Blokları */}
                     <div className="mt-4 flex gap-8">
                         <div className="border-l-2 border-cb-cyan pl-4">
                             <p className="text-4xl font-blender text-white">10<span className="text-cb-cyan">+</span></p>

@@ -71,7 +71,7 @@ export const BackgroundBeams = React.memo(({ className }: { className?: string }
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Tüm statik soluk arka plan yolları */}
+        {/* statik soluk arka plan yolları */}
         <path
           d={paths.join("")}
           stroke="url(#paint0_radial_242_278)"
@@ -79,7 +79,7 @@ export const BackgroundBeams = React.memo(({ className }: { className?: string }
           strokeWidth="0.5"
         ></path>
 
-        {/* 50 Çizginin tamamı üzerinde siberpunk animasyon çalıştırılıyor */}
+        {/* 50 Çizginin tamamı üzerinde çalıştırılıyor */}
         {paths.map((path, index) => (
           <motion.path
             key={`path-` + index}

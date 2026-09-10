@@ -94,17 +94,14 @@ const CategoryCard = ({ category }) => {
 
                 {/* Hoverda Gelen Glitchli Başlık, Açıklama ve Buton */}
                 <div className="flex flex-col items-center justify-center opacity-0 group-hover/canvas-card:opacity-100 transition-all duration-300 translate-y-4 group-hover/canvas-card:translate-y-0">
-                    {/* Boyutu 4xl yapıldı ve okunabilirlik için güçlü siyah gölge eklendi */}
                     <h2 className="text-4xl md:text-5xl font-blender tracking-wider uppercase text-white drop-shadow-[0_4px_4px_rgba(0,0,0,1)]">
                         {category.title}
                     </h2>
 
-                    {/* Boyutu text-base yapıldı, gri yerine beyaz kullanıldı ve gölge eklendi */}
                     <p className="text-base md:text-lg font-inter font-medium text-white mt-4 drop-shadow-[0_4px_4px_rgba(0,0,0,1)] leading-relaxed">
                         {category.desc}
                     </p>
 
-                    {/* İçi dolu, parlak ve daha dikkat çekici ÜRÜNLER butonu */}
                     <span className="mt-8 bg-cb-cyan text-cb-black font-oswald font-bold tracking-widest uppercase text-sm md:text-base px-8 py-2 shadow-[0_0_15px_rgba(0,240,255,0.6)] group-hover/canvas-card:scale-105 transition-transform duration-300">
                         ÜRÜNLER
                     </span>

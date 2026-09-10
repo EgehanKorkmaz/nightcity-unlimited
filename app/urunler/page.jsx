@@ -7,22 +7,22 @@ import { TiltCard } from "@/components/ui/3d-card";
 import { motion } from "framer-motion";
 
 const productsData = [
-    // İç Mekan (4)
+    // İç Mekan
     { id: 1, name: "İç Mekan LED", category: "ic-mekan", img: "/icmekanled.webp" },
     { id: 2, name: "Poster LED", category: "ic-mekan", img: "/posterled.webp" },
     { id: 3, name: "Mağaza LED", category: "ic-mekan", img: "/magzaled.webp" },
     { id: 4, name: "Stüdyo LED", category: "ic-mekan", img: "/studyoled.webp" },
-    // Dış Mekan (6)
+    // Dış Mekan
     { id: 5, name: "Açık Hava LED", category: "dis-mekan", img: "/acikhavaled.webp" },
     { id: 6, name: "Bina Cephe LED", category: "dis-mekan", img: "/binacepheled.webp" },
     { id: 7, name: "Dış Mekan LED 2", category: "dis-mekan", img: "/dismekanled2.webp" },
     { id: 8, name: "Sahne LED", category: "dis-mekan", img: "/sahneled.webp" },
     { id: 9, name: "Trafik Bilgi LED", category: "dis-mekan", img: "/trafikbilgiled.webp" },
     { id: 10, name: "Totem LED", category: "dis-mekan", img: "/totemled.webp" },
-    // Stadyum (2)
+    // Stadyum
     { id: 11, name: "Skorboard", category: "stadyum", img: "/skorbord.webp" },
     { id: 12, name: "Stadyum LED", category: "stadyum", img: "/stadyumled.webp" },
-    // Özel Üretim (4)
+    // Özel Üretim
     { id: 13, name: "Araç Mobil LED", category: "ozel", img: "/aracmobilled.webp" },
     { id: 14, name: "Esnek LED", category: "ozel", img: "/esnekled.webp" },
     { id: 15, name: "Transparan LED", category: "ozel", img: "/transparanled.webp" },
@@ -131,9 +131,9 @@ function ProductsGrid() {
             {/* Ürün Kartları */}
             <motion.div
                 key={activeTab} // Kategori değiştiğinde animasyonu tetikler
-                initial={{ opacity: 0, scale: 0.98, filter: "brightness(2)" }} // Parlayarak başlar
-                animate={{ opacity: 1, scale: 1, filter: "brightness(1)" }} // Normale döner
-                transition={{ duration: 0.15, ease: "linear" }} // 150ms'lik kısa, sert bir geçiş
+                initial={{ opacity: 0, scale: 0.98, filter: "brightness(2)" }}
+                animate={{ opacity: 1, scale: 1, filter: "brightness(1)" }}
+                transition={{ duration: 0.15, ease: "linear" }}
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-20"
             >
                 {filteredProducts.map((product) => (

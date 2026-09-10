@@ -37,7 +37,7 @@ export function Button({
         <MovingBorder duration={duration} rx="30%" ry="30%">
           <div
             className={cn(
-              // Neon Camgöbeği (Cyan) ışık huzmesi
+              // Neon Cyan ışık huzmesi
               "h-20 w-20 opacity-[0.8] bg-[radial-gradient(var(--color-cb-cyan)_40%,transparent_60%)]",
               borderClassName
             )}
@@ -47,7 +47,6 @@ export function Button({
 
       <div
         className={cn(
-          // Cyberpunk siyahı arkaplan ve ince border
           "relative bg-cb-black/90 border border-cb-cyan/20 backdrop-blur-xl text-white flex items-center justify-center w-full h-full text-sm antialiased",
           className
         )}
