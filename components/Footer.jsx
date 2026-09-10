@@ -1,8 +1,29 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 
 export function Footer() {
     const currentYear = new Date().getFullYear();
+    const [activeLang, setActiveLang] = useState("TR");
+
+    const languages = [
+        {
+            code: "TR",
+            activeClass: "border-cb-cyan text-cb-cyan bg-cb-cyan/10",
+            inactiveClass: "border-white/20 text-gray-400 hover:text-cb-black hover:bg-cb-cyan hover:border-cb-cyan",
+        },
+        {
+            code: "DE",
+            activeClass: "border-cb-yellow text-cb-yellow bg-cb-yellow/10",
+            inactiveClass: "border-white/20 text-gray-400 hover:text-cb-black hover:bg-cb-yellow hover:border-cb-yellow",
+        },
+        {
+            code: "EN",
+            activeClass: "border-cb-red text-cb-red bg-cb-red/10",
+            inactiveClass: "border-white/20 text-gray-400 hover:text-white hover:bg-cb-red hover:border-cb-red",
+        },
+    ];
 
     return (
         <footer className="w-full bg-cb-black border-t border-cb-cyan/30 pt-16 pb-8 relative z-10">
@@ -17,43 +38,54 @@ export function Footer() {
                             <img src="/logo.png" alt="Night Unlimited Logo" className="h-20 object-contain" />
                         </Link>
                         <p className="text-gray-400 font-inter text-sm leading-relaxed">
-                            Sınırları ortadan kaldıran yüksek çözünürlüklü LED teknolojileriyle, sıradan mekanları dijital başyapıtlara dönüştürüyoruz.
+                            Yaşam alanlarını ve işletmeleri geleceğin ışığıyla buluşturan teknoloji ve mühendislik firmasıyız. Markanızın görünürlüğünü en üst seviyeye taşıyan, sınır tanımayan çözümler sunuyoruz.
                         </p>
                     </div>
 
                     {/* 2. Kolon: Hızlı Bağlantılar */}
                     <div className="flex flex-col gap-4">
-                        <h4 className="text-white font-blender tracking-widest text-xl uppercase mb-2">Sistem <span className="text-cb-cyan">Ağı</span></h4>
+                        <h4 className="text-white font-blender tracking-widest text-xl uppercase mb-2">Navigasyon</h4>
                         <nav className="flex flex-col gap-2 font-inter text-sm text-gray-400">
-                            <Link href="/#urunler" className="hover:text-cb-yellow transition-colors w-max">Ürün Kategorileri</Link>
-                            <Link href="/#biz-kimiz" className="hover:text-cb-yellow transition-colors w-max">Kurumsal Kimlik</Link>
-                            <Link href="/#iletisim" className="hover:text-cb-yellow transition-colors w-max">İletişim Portalı</Link>
+                            <Link href="/urunler" className="hover:text-cb-yellow transition-colors w-max">Ürün Kataloğu</Link>
+                            <Link href="/#hakkimizda" className="hover:text-cb-yellow transition-colors w-max">Night Unlimited Hakkında</Link>
+                            <Link href="/#urunler" className="hover:text-cb-yellow transition-colors w-max">Hizmetler</Link>
+                            <Link href="/#iletisim" className="hover:text-cb-yellow transition-colors w-max">İletişim</Link>
                         </nav>
                     </div>
 
                     {/* 3. Kolon: İletişim Bilgileri */}
                     <div className="flex flex-col gap-4">
-                        <h4 className="text-white font-blender tracking-widest text-xl uppercase mb-2">Bağlantı <span className="text-cb-cyan">Noktası</span></h4>
+                        <h4 className="text-white font-blender tracking-widest text-xl uppercase mb-2">Merkez <span className="text-cb-cyan">Ofis</span></h4>
                         <div className="flex flex-col gap-2 font-inter text-sm text-gray-400">
-                            <a href="mailto:info@nightunlimited.com" className="hover:text-cb-yellow transition-colors w-max">INFO@NIGHTUNLIMITED.COM</a>
-                            <a href="tel:+905550000000" className="hover:text-cb-yellow transition-colors w-max">+90 (555) 000 00 00</a>
-                            <p className="mt-2 text-gray-500">Night City, Siberpunk Bölgesi<br />Bina 404, Kat 7</p>
+                            <p className="text-gray-400">Gazi Mahallesi 7700 Sokak No 5<br />Zemin Kat Menemen/İzmir</p>
+                            <a href="tel:+905421414323" className="hover:text-cb-yellow transition-colors w-max mt-1">+90 542 141 43 23</a>
+                            <div className="flex flex-col gap-1 mt-1">
+                                <a href="mailto:Kaan@nightunlimited.com" className="hover:text-cb-yellow transition-colors w-max">Kaan@nightunlimited.com</a>
+                                <a href="mailto:Info@nightunlimited.com" className="hover:text-cb-yellow transition-colors w-max">Info@nightunlimited.com</a>
+                                <a href="mailto:Destek@nightunlimited.com" className="hover:text-cb-yellow transition-colors w-max">Destek@nightunlimited.com</a>
+                                <a href="mailto:Servis@nightunlimited.com" className="hover:text-cb-yellow transition-colors w-max">Servis@nightunlimited.com</a>
+                            </div>
+                            <p className="text-gray-500 mt-2 text-xs">Pzt–Cum: 09:00 – 18:00</p>
                         </div>
                     </div>
 
-                    {/* 4. Kolon: Sosyal Medya */}
-                    <div className="flex flex-col gap-4">
-                        <h4 className="text-white font-blender tracking-widest text-xl uppercase mb-2">Global <span className="text-cb-cyan">Ağlar</span></h4>
+                    {/* 4. Kolon: Dil Seçenekleri (Başlıksız) */}
+                    <div className="flex flex-col justify-end gap-4">
                         <div className="flex gap-4">
-                            <a href="#" className="w-10 h-10 border border-white/20 flex items-center justify-center text-gray-400 hover:text-cb-black hover:bg-cb-cyan hover:border-cb-cyan transition-all duration-300">
-                                <span className="font-oswald tracking-widest">IN</span>
-                            </a>
-                            <a href="#" className="w-10 h-10 border border-white/20 flex items-center justify-center text-gray-400 hover:text-cb-black hover:bg-cb-yellow hover:border-cb-yellow transition-all duration-300">
-                                <span className="font-oswald tracking-widest">IG</span>
-                            </a>
-                            <a href="#" className="w-10 h-10 border border-white/20 flex items-center justify-center text-gray-400 hover:text-white hover:bg-cb-red hover:border-cb-red transition-all duration-300">
-                                <span className="font-oswald tracking-widest">YT</span>
-                            </a>
+                            {languages.map((lang) => {
+                                const isActive = activeLang === lang.code;
+                                return (
+                                    <button
+                                        key={lang.code}
+                                        type="button"
+                                        onClick={() => setActiveLang(lang.code)}
+                                        className={`w-12 h-12 border flex items-center justify-center font-oswald tracking-widest text-sm transition-all duration-300 ${isActive ? lang.activeClass : lang.inactiveClass
+                                            }`}
+                                    >
+                                        {lang.code}
+                                    </button>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
