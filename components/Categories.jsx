@@ -68,6 +68,7 @@ const CategoryCard = ({ category }) => {
     return (
         <Link
             href={`/urunler?kategori=${category.slug}`}
+            prefetch={false} {/* EKLENEN KRİTİK KOD: Arka planda önden yüklemeyi durdur */}
             onMouseEnter={() => !isMobile && setHovered(true)}
             onMouseLeave={() => !isMobile && setHovered(false)}
             className="border border-cb-cyan/20 group/canvas-card flex flex-col items-center justify-center bg-cb-black/50 hover:bg-cb-black w-full h-[30rem] lg:h-[32rem] p-4 relative cursor-pointer transition-colors"
