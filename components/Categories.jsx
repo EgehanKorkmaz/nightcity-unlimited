@@ -34,7 +34,7 @@ export function Categories() {
     ];
 
     return (
-        <section className="w-full py-20 bg-cb-black relative z-10 border-t border-cb-cyan/20">
+        <section id="urunler" className="w-full py-20 bg-cb-black relative z-10 border-t border-cb-cyan/30">
             <div className="max-w-7xl mx-auto px-4">
                 <h2 className="text-4xl md:text-5xl font-blender text-white text-center mb-12 tracking-widest uppercase">
                     Sistem <span className="text-cb-cyan">Kategorileri</span>

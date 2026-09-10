@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export function About() {
     return (
-        <section className="w-full py-24 bg-cb-black relative z-10 border-t border-white/10 overflow-hidden">
+        <section id="biz-kimiz" className="w-full py-24 bg-cb-black relative z-10 border-t border-cb-cyan/30 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
                 {/* Sol Alan: Video Paneli */}

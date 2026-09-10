@@ -13,7 +13,7 @@ export function Contact() {
     };
 
     return (
-        <section id="iletisim" className="w-full py-24 bg-cb-black relative z-10 border-t border-white/10">
+        <section id="iletisim" className="w-full py-24 bg-cb-black relative z-10 border-t border-cb-cyan/30">
             <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-16">
 
                 {/* Sol Alan: Başlık ve İletişim Bilgileri */}
