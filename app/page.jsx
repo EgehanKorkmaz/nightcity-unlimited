@@ -60,7 +60,7 @@ export default function Home() {
             <Hero />
             {/*<Categories />*/}
             {/*<About />*/}
-            <Contact />
+            {/*<Contact />*/}
           </motion.div>
         )}
       </AnimatePresence>
