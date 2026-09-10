@@ -1,99 +1,111 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-// 1. Next.js router kancalarını ekliyoruz
 import { usePathname, useRouter } from "next/navigation";
-import { Button } from "./ui/MovingBorders";
+import { motion, AnimatePresence } from "framer-motion";
 
-export function Header({ hideLinks = false }) {
-  const [activeLink, setActiveLink] = useState("");
+export function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const isHome = pathname === "/";
 
-  // Scrollspy: Hangi bölümde olduğumuzu takip eden IntersectionObserver
+  // Scroll durumuna göre header arka planını optimize et (Mobilde ağır blur'u kaldırdık)
   useEffect(() => {
-    const sectionIds = ["urunler", "biz-kimiz", "iletisim"];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveLink(entry.target.id);
-        });
-      },
-      { rootMargin: "-20% 0px -40% 0px" }
-    );
-
-    sectionIds.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) observer.observe(element);
-    });
-
     const handleScroll = () => {
-      if (window.scrollY < 100) setActiveLink("");
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      sectionIds.forEach((id) => {
-        const element = document.getElementById(id);
-        if (element) observer.unobserve(element);
-      });
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const getLinkStyle = (linkName) => {
-    return `transition-colors duration-300 cursor-pointer ${activeLink === linkName ? "text-cb-yellow" : "text-cb-cyan hover:text-white"
-      }`;
-  };
-
-  // 2. Tıklanan linki ve sayfayı kontrol eden kesin kaydırma (scroll) fonksiyonu
-  const handleNavClick = (e, targetId) => {
-    e.preventDefault();
-    if (pathname === "/") {
-      // Eğer ana sayfadaysak doğrudan hedef ID'ye kay (Smooth Scroll)
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: "smooth" });
+  const handleNavClick = (e, id) => {
+    setIsOpen(false);
+    if (isHome) {
+      e.preventDefault();
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      // Eğer başka sayfadaysak (örn: ürünler), ana sayfaya ve ilgili ID'ye yönlendir
-      router.push(`/#${targetId}`);
+      router.push(`/#${id}`);
     }
   };
 
   return (
-    <header className="fixed top-0 w-full z-50 flex items-center justify-between px-6 py-4 bg-cb-black/20 backdrop-blur-[2px]">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${scrolled ? "bg-cb-black/90 border-b border-cb-cyan/20" : "bg-transparent"
+        }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="font-blender text-2xl tracking-widest text-white uppercase">
+          NIGHT <span className="text-cb-cyan">UNLIMITED</span>
+        </Link>
 
-      <Link href="/" onClick={() => setActiveLink("")} className="flex items-center gap-4 cursor-pointer hover:scale-105 transition-transform duration-300">
-        <img src="/logo.png" alt="Night Unlimited" className="h-24 md:h-28 object-contain" />
-      </Link>
-
-      {!hideLinks && (
-        <nav className="hidden md:flex gap-8 font-inter uppercase text-sm tracking-widest">
-          {/* 3. Linkleri <span>'a çevirip onClick ile handleNavClick'e bağlıyoruz */}
-          <span onClick={(e) => handleNavClick(e, "urunler")} className={getLinkStyle("urunler")}>
-            Ürünler
-          </span>
-          <span onClick={(e) => handleNavClick(e, "biz-kimiz")} className={getLinkStyle("biz-kimiz")}>
-            Biz Kimiz
-          </span>
-          <span onClick={(e) => handleNavClick(e, "iletisim")} className={getLinkStyle("iletisim")}>
-            İletişim
-          </span>
+        {/* Masaüstü Navigasyon */}
+        <nav className="hidden md:flex items-center gap-8 font-oswald text-sm tracking-widest uppercase text-gray-300">
+          <Link href="/" className="hover:text-cb-cyan transition-colors">Anasayfa</Link>
+          <a href="#urunler" onClick={(e) => handleNavClick(e, "urunler")} className="hover:text-cb-cyan transition-colors">Ürünler</a>
+          <a href="#hakkimizda" onClick={(e) => handleNavClick(e, "hakkimizda")} className="hover:text-cb-cyan transition-colors">Hakkımızda</a>
+          <a href="#iletisim" onClick={(e) => handleNavClick(e, "iletisim")} className="hover:text-cb-cyan transition-colors">İletişim</a>
         </nav>
-      )}
 
-      <div className="hidden md:block">
-        {/* Teklif al butonu da aynı fonksiyonla koruma altına alındı */}
-        <div onClick={(e) => handleNavClick(e, "iletisim")} className="cursor-pointer">
-          <Button
-            duration={3000}
-            className="px-8 py-2 font-blender text-xl tracking-widest uppercase bg-cb-black/80 hover:bg-cb-yellow hover:text-cb-black hover:shadow-[0_0_20px_rgba(252,238,10,0.8)] transition-all duration-300"
-          >
-            Teklif Al
-          </Button>
-        </div>
+        {/* Mobil Hamburger Butonu */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-cb-cyan focus:outline-none p-2"
+          aria-label="Menüyü Aç"
+        >
+          <div className="w-6 flex flex-col gap-1.5">
+            <span className={`h-0.5 w-full bg-cb-cyan transition-transform ${isOpen ? "rotate-45 translate-y-2" : ""}`} />
+            <span className={`h-0.5 w-full bg-cb-cyan transition-opacity ${isOpen ? "opacity-0" : ""}`} />
+            <span className={`h-0.5 w-full bg-cb-cyan transition-transform ${isOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          </div>
+        </button>
       </div>
+
+      {/* Mobil Açılır Menü (Hardware-accelerated) */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-20 left-0 w-full bg-cb-black border-b border-cb-cyan/30 py-6 px-6 flex flex-col gap-6 md:hidden shadow-2xl"
+          >
+            <Link
+              href="/"
+              onClick={() => setIsOpen(false)}
+              className="text-white font-oswald tracking-widest text-lg uppercase hover:text-cb-cyan transition-colors"
+            >
+              Anasayfa
+            </Link>
+            <a
+              href="#urunler"
+              onClick={(e) => handleNavClick(e, "urunler")}
+              className="text-white font-oswald tracking-widest text-lg uppercase hover:text-cb-cyan transition-colors"
+            >
+              Ürünler
+            </a>
+            <a
+              href="#hakkimizda"
+              onClick={(e) => handleNavClick(e, "hakkimizda")}
+              className="text-white font-oswald tracking-widest text-lg uppercase hover:text-cb-cyan transition-colors"
+            >
+              Hakkımızda
+            </a>
+            <a
+              href="#iletisim"
+              onClick={(e) => handleNavClick(e, "iletisim")}
+              className="text-white font-oswald tracking-widest text-lg uppercase hover:text-cb-cyan transition-colors"
+            >
+              İletişim
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

@@ -5,7 +5,7 @@ import { BackgroundBeams } from "./ui/background-beams";
 export function Hero() {
     return (
         <>
-            {/*<Header />*/}
+            <Header />
             <div className="relative min-h-screen w-full flex flex-col items-center justify-center antialiased bg-cb-black overflow-hidden">
 
                 <div className="relative z-10 max-w-7xl mx-auto w-full p-4 flex flex-col items-start text-left mt-20 pointer-events-auto">
