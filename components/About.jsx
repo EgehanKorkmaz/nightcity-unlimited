@@ -1,6 +1,44 @@
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, useInView } from "framer-motion";
+
+// Performanslı, harici bağımlılıksız Sayaç Bileşeni
+function Counter({ value, suffix = "+" }) {
+    const [count, setCount] = useState(0);
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+    const numericValue = parseInt(value.replace(/\D/g, "")) || 0;
+
+    useEffect(() => {
+        if (!isInView) return;
+
+        let startTime = null;
+        const duration = 2000; // 2 saniye
+
+        const animateCount = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            const easeProgress = 1 - Math.pow(1 - progress, 4); // EaseOut Quartic
+
+            setCount(Math.floor(easeProgress * numericValue));
+
+            if (progress < 1) {
+                requestAnimationFrame(animateCount);
+            } else {
+                setCount(numericValue);
+            }
+        };
+
+        requestAnimationFrame(animateCount);
+    }, [isInView, numericValue]);
+
+    return (
+        <span ref={ref} className="inline-block">
+            {count}{suffix}
+        </span>
+    );
+}
 
 export function About() {
     return (
@@ -60,14 +98,18 @@ export function About() {
                         Projeye özel esnek modüller, stadyumlar için sıfır gecikmeli devasa paneller ve mimari hatlara uyum sağlayan transparan ekranlarımızla; sadece bir görüntü sistemi değil, tamamen içine çeken bir deneyim sunuyoruz.
                     </p>
 
-                    {/* Veri Blokları */}
+                    {/* Animasyonlu Veri Blokları */}
                     <div className="mt-4 flex gap-8">
                         <div className="border-l-2 border-cb-cyan pl-4">
-                            <p className="text-4xl font-blender text-white">10<span className="text-cb-cyan">+</span></p>
+                            <p className="text-4xl font-blender text-white">
+                                <Counter value="10" suffix="+" />
+                            </p>
                             <p className="text-xs font-oswald text-gray-500 uppercase tracking-widest mt-1">Yıllık Ar-Ge</p>
                         </div>
                         <div className="border-l-2 border-cb-yellow pl-4">
-                            <p className="text-4xl font-blender text-white">500<span className="text-cb-yellow">+</span></p>
+                            <p className="text-4xl font-blender text-white">
+                                <Counter value="500" suffix="+" />
+                            </p>
                             <p className="text-xs font-oswald text-gray-500 uppercase tracking-widest mt-1">Global Proje</p>
                         </div>
                     </div>
@@ -78,7 +120,6 @@ export function About() {
     );
 }
 
-// Kartlardaki aynı köşe ikonu
 const CornerIcon = ({ className, ...rest }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={className} {...rest}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
