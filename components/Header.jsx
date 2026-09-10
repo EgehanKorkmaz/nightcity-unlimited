@@ -1,45 +1,38 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+// 1. Next.js router kancalarını ekliyoruz
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/MovingBorders";
 
 export function Header({ hideLinks = false }) {
   const [activeLink, setActiveLink] = useState("");
+  const pathname = usePathname();
+  const router = useRouter();
 
+  // Scrollspy: Hangi bölümde olduğumuzu takip eden IntersectionObserver
   useEffect(() => {
-    // Sitedeki hangi bölümlerin (section) takip edileceği
     const sectionIds = ["urunler", "biz-kimiz", "iletisim"];
-
-    // Intersection Observer ayarları
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // Eğer bölüm ekranın belirlenen alanına girdiyse aktif yap
-          if (entry.isIntersecting) {
-            setActiveLink(entry.target.id);
-          }
+          if (entry.isIntersecting) setActiveLink(entry.target.id);
         });
       },
-      {
-        // Tetikleme alanı
-        rootMargin: "-20% 0px -40% 0px",
-      }
+      { rootMargin: "-20% 0px -40% 0px" }
     );
 
-    // İlgili ID'ye sahip DOM elemanlarını bul
     sectionIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
     });
 
-    // Kullanıcı en tepeye çıktığında aktifliği temizle
     const handleScroll = () => {
       if (window.scrollY < 100) setActiveLink("");
     };
     window.addEventListener("scroll", handleScroll);
 
     return () => {
-      // Bileşen temizlendiğinde dinleyicileri kaldır (Memory Leak önlemi)
       sectionIds.forEach((id) => {
         const element = document.getElementById(id);
         if (element) observer.unobserve(element);
@@ -49,8 +42,23 @@ export function Header({ hideLinks = false }) {
   }, []);
 
   const getLinkStyle = (linkName) => {
-    return `transition-colors duration-300 ${activeLink === linkName ? "text-cb-yellow" : "text-cb-cyan hover:text-white"
+    return `transition-colors duration-300 cursor-pointer ${activeLink === linkName ? "text-cb-yellow" : "text-cb-cyan hover:text-white"
       }`;
+  };
+
+  // 2. Tıklanan linki ve sayfayı kontrol eden kesin kaydırma (scroll) fonksiyonu
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault();
+    if (pathname === "/") {
+      // Eğer ana sayfadaysak doğrudan hedef ID'ye kay (Smooth Scroll)
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // Eğer başka sayfadaysak (örn: ürünler), ana sayfaya ve ilgili ID'ye yönlendir
+      router.push(`/#${targetId}`);
+    }
   };
 
   return (
@@ -62,27 +70,29 @@ export function Header({ hideLinks = false }) {
 
       {!hideLinks && (
         <nav className="hidden md:flex gap-8 font-inter uppercase text-sm tracking-widest">
-          <Link href="/#urunler" className={getLinkStyle("urunler")}>
+          {/* 3. Linkleri <span>'a çevirip onClick ile handleNavClick'e bağlıyoruz */}
+          <span onClick={(e) => handleNavClick(e, "urunler")} className={getLinkStyle("urunler")}>
             Ürünler
-          </Link>
-          <Link href="/#biz-kimiz" className={getLinkStyle("biz-kimiz")}>
+          </span>
+          <span onClick={(e) => handleNavClick(e, "biz-kimiz")} className={getLinkStyle("biz-kimiz")}>
             Biz Kimiz
-          </Link>
-          <Link href="/#iletisim" className={getLinkStyle("iletisim")}>
+          </span>
+          <span onClick={(e) => handleNavClick(e, "iletisim")} className={getLinkStyle("iletisim")}>
             İletişim
-          </Link>
+          </span>
         </nav>
       )}
 
       <div className="hidden md:block">
-        <Link href="/#iletisim">
+        {/* Teklif al butonu da aynı fonksiyonla koruma altına alındı */}
+        <div onClick={(e) => handleNavClick(e, "iletisim")} className="cursor-pointer">
           <Button
             duration={3000}
             className="px-8 py-2 font-blender text-xl tracking-widest uppercase bg-cb-black/80 hover:bg-cb-yellow hover:text-cb-black hover:shadow-[0_0_20px_rgba(252,238,10,0.8)] transition-all duration-300"
           >
             Teklif Al
           </Button>
-        </Link>
+        </div>
       </div>
     </header>
   );
