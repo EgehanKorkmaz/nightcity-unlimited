@@ -31,9 +31,11 @@
     color: white;
     @apply bg-background text-foreground;
   }
+
   * {
     @apply border-border outline-ring/50;
   }
+
   html {
     @apply font-sans;
   }
@@ -87,7 +89,8 @@
   color: var(--color-cb-cyan);
 }
 
-.glitch-text::before, .glitch-text::after {
+.glitch-text::before,
+.glitch-text::after {
   content: attr(data-text);
   position: absolute;
   top: 0;
@@ -110,21 +113,61 @@
 }
 
 @keyframes glitch-slice-1 {
-  0% { clip-path: inset(20% 0 80% 0); }
-  20% { clip-path: inset(60% 0 10% 0); transform: translateX(-2px); }
-  40% { clip-path: inset(40% 0 50% 0); }
-  60% { clip-path: inset(80% 0 5% 0); transform: translateX(2px); }
-  80% { clip-path: inset(10% 0 70% 0); }
-  100% { clip-path: inset(30% 0 20% 0); transform: translateX(-1px); }
+  0% {
+    clip-path: inset(20% 0 80% 0);
+  }
+
+  20% {
+    clip-path: inset(60% 0 10% 0);
+    transform: translateX(-2px);
+  }
+
+  40% {
+    clip-path: inset(40% 0 50% 0);
+  }
+
+  60% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translateX(2px);
+  }
+
+  80% {
+    clip-path: inset(10% 0 70% 0);
+  }
+
+  100% {
+    clip-path: inset(30% 0 20% 0);
+    transform: translateX(-1px);
+  }
 }
 
 @keyframes glitch-slice-2 {
-  0% { clip-path: inset(10% 0 60% 0); }
-  20% { clip-path: inset(30% 0 20% 0); transform: translateX(2px); }
-  40% { clip-path: inset(70% 0 10% 0); }
-  60% { clip-path: inset(20% 0 50% 0); transform: translateX(-2px); }
-  80% { clip-path: inset(50% 0 30% 0); }
-  100% { clip-path: inset(5% 0 80% 0); transform: translateX(1px); }
+  0% {
+    clip-path: inset(10% 0 60% 0);
+  }
+
+  20% {
+    clip-path: inset(30% 0 20% 0);
+    transform: translateX(2px);
+  }
+
+  40% {
+    clip-path: inset(70% 0 10% 0);
+  }
+
+  60% {
+    clip-path: inset(20% 0 50% 0);
+    transform: translateX(-2px);
+  }
+
+  80% {
+    clip-path: inset(50% 0 30% 0);
+  }
+
+  100% {
+    clip-path: inset(5% 0 80% 0);
+    transform: translateX(1px);
+  }
 }
 
 @theme inline {

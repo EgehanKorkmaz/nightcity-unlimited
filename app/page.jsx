@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Hero } from "@/components/Hero";
 import { Categories } from "@/components/Categories";
+import { About } from "@/components/About";
+import { Contact } from "@/components/Contact";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -57,6 +59,8 @@ export default function Home() {
           >
             <Hero />
             <Categories />
+            <About />
+            <Contact />
           </motion.div>
         )}
       </AnimatePresence>

@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import { TiltCard } from "@/components/ui/3d-card";
+import { motion } from "framer-motion";
 
 const productsData = [
     // İç Mekan (4)
@@ -128,7 +129,13 @@ function ProductsGrid() {
             </div>
 
             {/* Ürün Kartları */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-20">
+            <motion.div
+                key={activeTab} // Kategori değiştiğinde animasyonu tetikler
+                initial={{ opacity: 0, scale: 0.98, filter: "brightness(2)" }} // Parlayarak başlar
+                animate={{ opacity: 1, scale: 1, filter: "brightness(1)" }} // Normale döner
+                transition={{ duration: 0.15, ease: "linear" }} // 150ms'lik kısa, sert bir geçiş
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-20"
+            >
                 {filteredProducts.map((product) => (
                     <TiltCard key={product.id} glowClass={getGlowColor(product.category)} className="h-[26rem]">
                         <div className="relative w-full h-3/4 mb-4 overflow-hidden bg-black/50 border-b border-white/10">
@@ -147,7 +154,7 @@ function ProductsGrid() {
                         </div>
                     </TiltCard>
                 ))}
-            </div>
+            </motion.div>
         </div>
     );
 }
@@ -155,7 +162,8 @@ function ProductsGrid() {
 export default function UrunlerPage() {
     return (
         <main className="min-h-screen bg-cb-black flex flex-col pt-32 md:pt-40 relative">
-            <Header />
+            {/* Sadece bu sayfaya özel linkleri gizle komutunu gönderiyoruz */}
+            <Header hideLinks={true} />
             <Suspense fallback={<div className="text-cb-cyan font-blender text-2xl text-center animate-pulse">Sistem Yükleniyor...</div>}>
                 <ProductsGrid />
             </Suspense>
