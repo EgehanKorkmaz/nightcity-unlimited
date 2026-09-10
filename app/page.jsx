@@ -3,15 +3,26 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Hero } from "@/components/Hero";
+import { Categories } from "@/components/Categories";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
-  // Siber-boot simülasyonu: 2.5 saniye sonra ana siteyi yükle
   useEffect(() => {
+    // Kullanıcının bu oturumda splash ekranını görüp görmediğini kontrol et
+    const hasSeenSplash = sessionStorage.getItem("splashSeen");
+
+    if (hasSeenSplash) {
+      setIsLoading(false);
+      return;
+    }
+
+    // İlk girişse 2.5 saniye bekle ve session'a kaydet
     const timer = setTimeout(() => {
       setIsLoading(false);
+      sessionStorage.setItem("splashSeen", "true");
     }, 2500);
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -25,7 +36,6 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeInOut" }}
             className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-cb-black"
           >
-            {/* Logo Dosyası Büyütüldü */}
             <motion.img
               src="/logo.png"
               alt="Night Unlimited"
@@ -33,7 +43,6 @@ export default function Home() {
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
             />
-            {/* Orijinal Fragman Glitch'i */}
             <p className="text-3xl font-blender uppercase tracking-widest glitch-text" data-text="Giriş Yapılıyor...">
               Giriş Yapılıyor...
             </p>
@@ -47,6 +56,7 @@ export default function Home() {
             className="w-full min-h-screen"
           >
             <Hero />
+            <Categories />
           </motion.div>
         )}
       </AnimatePresence>
